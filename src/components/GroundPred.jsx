@@ -1,15 +1,11 @@
-
-
-
-
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const GroundPred = () => {
   const [formData, setFormData] = useState({
-    Temperature_C: '',
-    Rainfall_mm: '',
-    Dissolved_Oxygen_mg_L: '',
+    Temperature_C: "",
+    Rainfall_mm: "",
+    Dissolved_Oxygen_mg_L: "",
   });
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +14,7 @@ const GroundPred = () => {
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: parseFloat(e.target.value) || '', // Convert input to float
+      [e.target.name]: parseFloat(e.target.value) || "", // Convert input to float
     });
   };
 
@@ -29,18 +25,18 @@ const GroundPred = () => {
     setPrediction(null);
 
     try {
-      const response = await fetch('http://localhost:8000/make_prediction', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/make_prediction", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'AJUOBVYUI9U1JD8', // Replace with your actual API key
+          "Content-Type": "application/json",
+          "x-api-key": "AJUOBVYUI9U1JD8",
         },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to fetch prediction');
+        throw new Error(errorData.detail || "Failed to fetch prediction");
       }
 
       const data = await response.json();
@@ -65,7 +61,10 @@ const GroundPred = () => {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="Temperature_C" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="Temperature_C"
+              className="block text-sm font-medium text-gray-700"
+            >
               Temperature (°C)
             </label>
             <input
@@ -79,7 +78,10 @@ const GroundPred = () => {
             />
           </div>
           <div>
-            <label htmlFor="Rainfall_mm" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="Rainfall_mm"
+              className="block text-sm font-medium text-gray-700"
+            >
               Rainfall (mm)
             </label>
             <input
@@ -93,7 +95,10 @@ const GroundPred = () => {
             />
           </div>
           <div>
-            <label htmlFor="Dissolved_Oxygen_mg_L" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="Dissolved_Oxygen_mg_L"
+              className="block text-sm font-medium text-gray-700"
+            >
               Dissolved Oxygen (mg/L)
             </label>
             <input
@@ -108,51 +113,59 @@ const GroundPred = () => {
           </div>
 
           <div>
-            <label htmlFor="pH" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="pH"
+              className="block text-sm font-medium text-gray-700"
+            >
               pH level
             </label>
             <input
               type="number"
               id="pH"
               name="pH"
-            //   value={formData.Dissolved_Oxygen_mg_L}
-            //   onChange={handleInputChange}
+              //   value={formData.Dissolved_Oxygen_mg_L}
+              //   onChange={handleInputChange}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
           </div>
 
-
           <div>
-            <label htmlFor="pH" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="pH"
+              className="block text-sm font-medium text-gray-700"
+            >
               Soil Moisture Content (m3/m3)
             </label>
             <input
               type="number"
               id="pH"
               name="pH"
-            //   value={formData.Dissolved_Oxygen_mg_L}
-            //   onChange={handleInputChange}
+              //   value={formData.Dissolved_Oxygen_mg_L}
+              //   onChange={handleInputChange}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
           </div>
 
           <div>
-            <label htmlFor="pH" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="pH"
+              className="block text-sm font-medium text-gray-700"
+            >
               Nitrate Levels (mg/L)
             </label>
             <input
               type="number"
               id="pH"
               name="pH"
-            //   value={formData.Dissolved_Oxygen_mg_L}
-            //   onChange={handleInputChange}
+              //   value={formData.Dissolved_Oxygen_mg_L}
+              //   onChange={handleInputChange}
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
           </div>
-          
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -160,7 +173,7 @@ const GroundPred = () => {
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200"
             disabled={loading}
           >
-            {loading ? 'Predicting...' : 'Make Prediction'}
+            {loading ? "Predicting..." : "Make Prediction"}
           </motion.button>
         </form>
 
@@ -181,15 +194,19 @@ const GroundPred = () => {
             transition={{ delay: 0.2 }}
             className="mt-6 p-4 bg-green-100 rounded-lg"
           >
-            <h2 className="text-xl font-semibold text-green-800 mb-2">Prediction Results</h2>
+            <h2 className="text-xl font-semibold text-green-800 mb-2">
+              Prediction Results
+            </h2>
             <p className="text-green-700">
-              <strong>Ground Water Prediction:</strong> {prediction.rain_fall_predtiction.toFixed(2)} m
+              <strong>Ground Water Prediction:</strong>{" "}
+              {prediction.rain_fall_predtiction.toFixed(2)} m
             </p>
             <p className="text-green-700">
               <strong>Predicted Date:</strong> {prediction.predicted_date}
             </p>
             <p className="text-green-700">
-              <strong>Prediction Status:</strong> {prediction.prdiction ? 'Positive' : 'Negative'}
+              <strong>Prediction Status:</strong>{" "}
+              {prediction.prdiction ? "Positive" : "Negative"}
             </p>
           </motion.div>
         )}
